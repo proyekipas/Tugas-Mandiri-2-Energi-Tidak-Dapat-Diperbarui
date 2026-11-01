@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="id"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TM 2 – Sumber Energi Tidak Dapat Diperbarui: Minyak Bumi dan Batu Bara</title>
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;max-width:100%;overflow-x:hidden}
+:root{--o:#ff9f1c;--c:#2ec4b6;--r:#ef476f;--g:#06d6a0;--card:#1b2434;--ln:#2d3a52}
+body{font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:#10151f;color:#eef2f7;word-wrap:break-word}
+header{position:sticky;top:0;z-index:5;background:linear-gradient(120deg,#ff6b35,#ff9f1c 55%,#2ec4b6);color:#10151f;padding:8px 12px}
+header b{display:block;font-size:15px}header span{font-size:13px;font-weight:600}
+.pb{height:8px;background:#0003;border-radius:9px;margin-top:5px;overflow:hidden}.pb i{display:block;height:100%;background:#10151f;width:0;transition:width .3s}
+main{padding:12px;max-width:720px;margin:0 auto}
+h2{margin:6px 0 8px;font-size:22px}h3{margin:14px 0 4px;color:var(--o)}
+.cd{background:var(--card);border:1px solid var(--ln);border-left:5px solid var(--o);border-radius:12px;padding:10px 12px;margin:10px 0}
+.cd>b{color:var(--o);display:block}.cd p{margin:4px 0 0}
+.cd.t{border-left-color:var(--c)}.cd.t>b{color:var(--c)}
+.cd.ok{border-left-color:var(--g)}.cd.no{border-left-color:var(--r);background:#2a1b26}
+.g{color:var(--g)}.r{color:#ff8fa8}
+.op{display:flex;gap:10px;align-items:flex-start;min-height:44px;padding:9px 10px;border:1px solid var(--ln);border-radius:10px;margin:6px 0;background:#141c2b}
+.op input{width:20px;height:20px;margin-top:2px;flex:none}
+.f{display:block;margin:10px 0 0;font-weight:600;font-size:14px}
+.f textarea,.f input{display:block;width:100%;max-width:100%;margin-top:4px;padding:10px;border-radius:10px;border:2px solid var(--ln);background:#0c111a;color:#fff;font:inherit;resize:none;overflow:hidden}
+.f.bad textarea,.f.bad input{border-color:var(--r);background:#2a1620}
+.hn{display:block;font-weight:400;font-size:13px;color:#9fb0c8;margin-top:2px}.on{box-shadow:0 0 0 3px var(--o)}.sw.on{transform:scale(1.12)}
+.f em{display:block;color:#ff8fa8;font-size:13px;font-style:normal;margin-top:3px}
+.bt{min-height:48px;padding:10px 16px;border:0;border-radius:12px;font:700 16px inherit;font-family:inherit;color:#10151f;background:var(--o);cursor:pointer;max-width:100%}
+.bt.red{background:var(--r);color:#fff}.bt.gr{background:#3a465e;color:#fff}.bt.cy{background:var(--c)}.bt.dis{opacity:.45}
+.nv{display:flex;gap:10px;margin:16px 0}.nv .bt{flex:1}
+.cf{background:#2a1620;border:2px solid var(--r);border-radius:12px;padding:10px;display:flex;flex-wrap:wrap;gap:8px}.cf p{width:100%;margin:0;font-weight:700}.cf .bt{flex:1;min-width:120px}
+.rs{margin:10px 0 40px}
+#ts{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);background:#fff;color:#10151f;padding:10px 16px;border-radius:12px;font-weight:700;max-width:92%;box-shadow:0 4px 18px #0008;display:none;z-index:9;text-align:center}
+canvas{width:100%;max-width:100%;height:auto;aspect-ratio:16/9;background:#fff;border-radius:10px;touch-action:none;display:block}
+.tl{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0;align-items:center}.tl .bt{min-height:44px;padding:6px 12px}
+.sw{width:44px;height:44px;border-radius:50%;border:3px solid #fff;padding:0}
+.rp img{max-width:100%;background:#fff}.rp .a{white-space:pre-wrap;word-break:break-word;border:1px solid var(--ln);border-radius:8px;padding:6px 8px;margin:3px 0;background:#141c2b}
+.rp .kn{color:var(--g);font-size:14px;margin:2px 0 8px}
+#pr{display:none}
+@media print{body{background:#fff;color:#000}header,main,#ts{display:none!important}#pr{display:block}#pr *{color:#000!important;background:#fff!important;border-color:#999!important}#pr .a{break-inside:avoid}}
+</style></head><body>
+<header><b>⚡ TM 2 · Energi Fosil: Minyak Bumi dan Batu Bara</b><span id="pg"></span><div class="pb"><i id="pbi"></i></div></header>
+<main id="v"></main><div id="pr"></div><div id="ts"></div>
+<script>
+"use strict";
+var KEY='tm2_energi_fosil_sumber_v1',M=6,QZ=6,TM=7,RV=8,Y=9;
+var $=function(s){return document.querySelector(s)};
+var S,isResetting=false,tm,E={},tick,t0=Date.now(),hosts={},busy=false;
+function fresh(){return{id:{n:'',k:'',a:''},a:{},q:{s:[],l:[],o:[],w:[],t:0,h:[]},st:0,tb:0,sk:[]}}
+function load(){try{var r=localStorage.getItem(KEY);if(r){var o=Object.assign(fresh(),JSON.parse(r));return o}}catch(e){}return fresh()}
+function saveNow(){if(isResetting)return;try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
+function saveD(){if(isResetting)return;clearTimeout(tm);tm=setTimeout(saveNow,300)}
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+var tt;function toast(m){var t=$('#ts');t.textContent=m;t.style.display='block';clearTimeout(tt);tt=setTimeout(function(){t.style.display='none'},2800)}
+
+/* ---------- MATERI ---------- */
+var P=[
+{t:'Kenalan dengan Energi Fosil',i:'⛽',c:[
+['Dari mana bensinmu?','Daeng Ralla melihat truk tangki keluar-masuk Depo Untia. Sepupunya, Daeng Sangkala, di Jeneponto melihat truk batu bara menuju PLTU Punagaya. Mereka penasaran: kok minyak hitam kental bisa jadi bensin bening, dan batu keras bisa jadi listrik?'],
+['Dua jenis sumber energi','Dapat diperbarui: tidak habis atau cepat tersedia lagi (matahari, angin, air). Tidak dapat diperbarui: kalau habis butuh jutaan tahun untuk terbentuk lagi (minyak bumi, batu bara, gas alam).','t'],
+['Analogi tabungan','Seperti uang tabungan: diambil terus tanpa menabung, lama-lama habis. Kita memakai minyak bumi dan batu bara dengan cepat, bumi membuatnya sangat lambat.'],
+['Mengapa disebut bahan bakar fosil?','Fosil = sisa makhluk hidup purba yang terkubur. Minyak bumi berasal dari plankton dan ganggang laut kecil (bukan dinosaurus!). Batu bara berasal dari tumbuhan rawa purba. Keduanya dibakar untuk menghasilkan panas dan energi.','t'],
+['Fakta unik','1 barel minyak mentah = 159 liter. Aspal jalan, ember plastik, lilin, dan vaselin juga dibuat dari minyak bumi. Indonesia termasuk pengekspor batu bara terbesar di dunia.']]},
+{t:'Minyak Bumi: Terbentuk dan Menuju Kilang',i:'🛢️',c:[
+['1. Makhluk laut mati','Plankton dan ganggang laut yang sangat kecil mati, lalu jatuh ke dasar laut.'],
+['2. Tertimbun','Sisa-sisanya tertutup lumpur dan pasir, lapis demi lapis, selama jutaan tahun.','t'],
+['3. Ditekan dan dipanaskan','Tekanan dan panas bumi perlahan mengubahnya menjadi minyak dan gas.'],
+['4. Terkumpul','Minyak tersimpan di batuan berpori seperti air di dalam spons, ditahan lapisan batu rapat di atasnya.','t'],
+['Dari dalam bumi ke kilang','Sumur dibor sampai lapisan minyak, minyak dipompa ke permukaan. Hasilnya disebut minyak mentah (crude oil). Lalu dikirim lewat pipa atau kapal tanker ke kilang, yaitu pabrik pengolah minyak. Minyak mentah hitam, kental, dan campuran banyak zat, jadi belum bisa dipakai langsung di motor.'],
+['⚠️ Penting untuk anak Makassar!','Depo Pertamina Untia BUKAN tempat mengolah minyak mentah. Depo menyimpan dan menyalurkan BBM yang sudah jadi. BBM diolah di kilang daerah lain, lalu dikirim kapal tanker ke Makassar.','t']]},
+{t:'Di Dalam Kilang Minyak',i:'🏭',c:[
+['Tahap 1: Pembersihan awal','Air, garam, dan lumpur dibuang dari minyak mentah.'],
+['Tahap 2: Pemanasan','Minyak mentah dipanaskan di tungku sampai kira-kira 350°C hingga berubah menjadi uap panas.','t'],
+['Tahap 3: Distilasi bertingkat','Uap masuk menara distilasi, naik, mendingin, lalu mengembun di tingkat yang berbeda-beda. Di sinilah minyak mentah terpisah menjadi bensin, solar, dan lainnya.'],
+['Tahap 4: Pengolahan lanjutan','Bagian berat dipecah menjadi ringan (perengkahan). Kotoran seperti belerang dibuang agar BBM lebih bersih.','t'],
+['Tahap 5: Pencampuran dan uji mutu','Hasil dicampur sesuai kebutuhan dan diuji. Jadilah Pertalite, Pertamax, dan Solar.'],
+['Rahasia menara distilasi','Setiap zat punya titik didih berbeda. Zat ringan (titik didih rendah) naik sampai paling atas. Zat berat tertinggal di bawah. Seperti gedung bertingkat: orang ringan dan lincah bisa lari ke lantai atas, orang berat hanya sampai lantai bawah.','t'],
+['Hasil olahan (suhu perkiraan)','Gas elpiji (&lt;40°C): gas melon 3 kg. Bensin (40–200°C): motor dan mobil. Minyak tanah dan avtur (150–250°C): kompor, pesawat. Solar (250–350°C): truk, bus, kapal nelayan, genset. Residu (&gt;350°C): aspal, oli mesin, lilin.'],
+['Perjalanan bensin Daeng Ralla','Sumur → kilang (misal Balikpapan atau Cilacap) → menara distilasi → kapal tanker ke Makassar → Depo Untia → truk tangki ke SPBU → motor Daeng Ralla.','t']]},
+{t:'Batu Bara: Dari Rawa Purba',i:'⛏️',c:[
+['Bagaimana terbentuk?','Tumbuhan rawa purba mati dan tenggelam → membusuk jadi gambut (lunak, berserat) → tertimbun dan ditekan panas bumi → setelah jutaan tahun jadi batu bara yang keras.'],
+['Tingkatan batu bara','Makin tua dan lama ditekan, makin keras dan panas. Gambut (lunak, banyak air) → Lignit (muda, panas rendah) → Sub-bituminus (banyak dipakai PLTU) → Bituminus (keras, mengkilap, panas tinggi) → Antrasit (terbaik, jarang). Batu bara Indonesia umumnya lignit dan sub-bituminus.','t'],
+['Tahap 1: Penambangan','Tanah di atas dikupas, batu bara digali alat berat (tambang terbuka). Jika sangat dalam, dibuat terowongan (tambang bawah tanah).'],
+['Tahap 2: Pengangkutan','Dibawa truk ke pelabuhan, lalu tongkang atau kapal ke tujuan.','t'],
+['Tahap 3: Penghancuran','Bongkahan besar dipecah kecil agar mudah dipakai.'],
+['Tahap 4: Pencucian','Dicuci agar tanah dan batu terbuang. Batu bara jadi lebih bersih dan lebih panas.','t'],
+['Tahap 5: Penyimpanan dan pencampuran','Ditumpuk di tempat penyimpanan. Jenis berbeda dicampur supaya mutunya sesuai kebutuhan.'],
+['Tahap 6: Pemanfaatan','Terutama bahan bakar PLTU. Juga untuk pabrik semen dan pembuatan baja.','t']]},
+{t:'PLTU dan Perbandingan',i:'⚡',c:[
+['PLTU = Pembangkit Listrik Tenaga Uap','Prinsipnya seperti memasak air. 1) Batu bara dihaluskan dan dibakar di boiler. 2) Panas mengubah air jadi uap bertekanan tinggi. 3) Uap memutar turbin. 4) Turbin memutar generator, jadilah listrik. 5) Uap didinginkan jadi air dan dipakai ulang. 6) Trafo menaikkan tegangan, kabel mengalirkan listrik ke rumah.'],
+['Analogi dapur','Tutup panci bergetar saat air mendidih? Itu tenaga uap! Di PLTU uapnya jauh lebih kuat, cukup untuk memutar turbin raksasa.','t'],
+['Batu bara dan rumah Daeng Sangkala','Truk membawa batu bara ke PLTU Punagaya, Jeneponto. Batu bara dibakar, uap memutar turbin dan generator, listrik mengalir lewat kabel ke rumah Daeng Sangkala. Lampu, kulkas, dan TV menyala berkat perjalanan panjang itu.'],
+['Minyak bumi vs batu bara: asal dan wujud','Minyak bumi: dari plankton dan ganggang laut, cair, hitam, kental. Batu bara: dari tumbuhan rawa, padat, hitam, keras.','t'],
+['Minyak bumi vs batu bara: cara ambil dan olah','Minyak bumi: dibor lalu dipompa; dipanaskan dan dipisah di menara distilasi. Batu bara: digali; dihancurkan, dicuci, lalu dibakar di PLTU.'],
+['Hasil dan kegunaan','Minyak bumi: bensin, solar, avtur, elpiji, aspal (motor, mobil, kapal nelayan, kompor gas). Batu bara: listrik lewat PLTU dan bahan bakar industri (lampu, kulkas, TV).','t'],
+['Sama-sama...','Fosil, tidak dapat diperbarui, dan pembakarannya mencemari udara.']]},
+{t:'Dampak, Hemat Energi, Kata Kunci',i:'🌍',c:[
+['Udara kotor','Pembakaran bensin, solar, dan batu bara menghasilkan asap dan gas CO₂ yang ikut membuat bumi makin panas.'],
+['Tumpahan minyak','Jika kapal tanker bocor, laut tercemar. Nelayan dan ikan ikut terdampak.','t'],
+['Limbah PLTU','Pembakaran batu bara meninggalkan abu dan gas yang bisa memicu hujan asam.'],
+['Bekas tambang dan persediaan menipis','Lahan bekas tambang bisa rusak dan berlubang jika tidak dipulihkan. Karena tidak dapat diperbarui, makin banyak dipakai makin cepat habis.','t'],
+['Yang bisa kamu lakukan','Matikan lampu, kipas, TV saat tidak dipakai. Cabut charger setelah HP penuh. Matikan mesin motor saat menunggu lama. Jarak dekat: jalan kaki atau sepeda; jarak jauh: pete-pete atau bus bersama. Rawat motor (oli, filter udara). Pakai lampu LED.'],
+['Kamus mini','Distilasi: memisahkan campuran dengan memanaskan lalu mengembunkan. Titik didih: suhu zat berubah jadi uap. Fraksi: bagian hasil pemisahan minyak mentah. Perengkahan: memecah zat berat jadi ringan. Boiler: ruang bakar pemanas air. Turbin: baling-baling besar diputar uap. Generator: pengubah putaran jadi listrik.','t']]}];
+
+/* ---------- KUIS (jawaban benar selalu indeks 0, urutan diacak saat tampil) ---------- */
+var Q=[
+['Daeng Ralla berkata, "Minyak mentah diolah menjadi bensin di Depo Untia dekat rumahku." Tanggapan yang tepat adalah ...',['Keliru, depo hanya menyimpan dan menyalurkan BBM jadi yang diolah di kilang','Benar, depo Untia adalah kilang minyak','Keliru, depo adalah tempat menambang minyak','Benar, karena truk tangki membawa minyak mentah ke depo'],'Ingat kotak "Penting untuk anak Makassar": depo bukan kilang.'],
+['Temanmu bilang minyak bumi berasal dari dinosaurus yang mati. Koreksi yang paling tepat ...',['Minyak bumi berasal dari plankton dan ganggang laut purba','Minyak bumi berasal dari tumbuhan rawa purba','Minyak bumi berasal dari batu yang dilelehkan','Minyak bumi berasal dari kayu hutan yang dibakar'],'Asalnya makhluk laut yang sangat kecil.'],
+['Sebuah kilang ingin menghasilkan aspal untuk memperbaiki jalan di Makassar. Aspal diambil dari bagian menara distilasi ...',['paling bawah, berupa residu bertitik didih tertinggi','paling atas, karena paling ringan','paling atas, bersama gas elpiji','tengah, bersama bensin'],'Zat berat tidak mau naik, jadi tertinggal di bawah.'],
+['Kapal tanker bocor di perairan dekat Paotere. Dampak yang paling langsung dirasakan adalah ...',['laut tercemar sehingga ikan dan nelayan terdampak','listrik di Makassar padam','batu bara menjadi lebih murah','udara di PLTU menjadi bersih'],'Tumpahan minyak mencemari laut.'],
+['Daeng Naba menuang minyak mentah langsung ke tangki motornya. Mesin rusak. Penyebab utamanya ...',['minyak mentah campuran banyak zat dan belum dipisahkan serta dibersihkan di kilang','minyak mentah terlalu bening','minyak mentah tidak mengandung energi','minyak mentah hanya untuk PLTU'],'Minyak mentah harus diolah dulu di kilang.'],
+['Boiler di PLTU Punagaya rusak sehingga tidak bisa memanaskan air. Akibat langsung pada pembangkit ...',['tidak ada uap untuk memutar turbin sehingga listrik tidak dihasilkan','turbin berputar lebih cepat','batu bara berubah jadi minyak','generator menghasilkan listrik dari air dingin'],'Urutan: batu bara dibakar, uap, turbin, generator.'],
+['Sebuah pabrik baja membutuhkan batu bara dengan panas sangat tinggi. Jenis yang paling cocok ...',['bituminus yang keras dan mengkilap','gambut yang lunak dan banyak air','lignit yang muda dan panasnya rendah','tanah liat'],'Makin tua dan keras, makin besar panasnya.'],
+['Batu bara dari tambang masih bercampur tanah dan batu. Agar lebih bersih dan lebih panas, dilakukan tahap ...',['pencucian','penambangan','pengangkutan','perengkahan'],'Tanah dan batu terbuang saat dicuci.'],
+['Daeng Caca berkata, "Minyak habis juga tidak apa-apa, nanti alam membuatnya lagi besok." Tanggapan yang tepat ...',['Alam butuh jutaan tahun, jadi kita harus berhemat','Benar, alam membuatnya dalam seminggu','Benar, minyak bumi termasuk energi terbarukan','Keliru, minyak bumi hanya ada di Indonesia'],'Itulah arti tidak dapat diperbarui.'],
+['Jarak rumah Daeng Caca ke sekolah hanya 500 meter. Pilihan yang paling menghemat BBM dan mengurangi asap ...',['berjalan kaki atau bersepeda','naik motor sambil menyalakan mesin lama','naik mobil sendirian','menyuruh orang lain mengantar dengan motor'],'Jarak dekat sebaiknya tidak memakai BBM.']];
+
+/* ---------- TUGAS ---------- */
+var F=[],KN={},GI;
+(function(){
+var mn=['Sumur minyak','Tungku kilang','Menara distilasi','Depo Makassar','SPBU'],
+mk=['Minyak mentah dibor dan dipompa dari dalam bumi.','Minyak mentah dipanaskan sampai menjadi uap (±350°C).','Uap dipisah menjadi gas elpiji, bensin, minyak tanah/avtur, solar, residu berdasarkan titik didih.','Bensin dikirim kapal tanker ke Depo Untia, lalu truk tangki ke SPBU. (Depo hanya menyimpan, bukan mengolah.)','Daeng Ralla mengisi bensin di motornya.'],
+bn=['Tambang','Pengangkutan','Penghancuran dan pencucian','Boiler','Turbin dan generator','Rumah Daeng Sangkala'],
+bk=['Batu bara digali dengan alat berat.','Dibawa truk dan tongkang ke PLTU Punagaya.','Dipecah kecil dan dibersihkan dari tanah.','Dibakar untuk memanaskan air menjadi uap.','Uap memutar turbin, generator menghasilkan listrik.','Listrik sampai lewat kabel, lampu menyala.'];
+var HT={m0:'Petunjuk: tulis 1 kalimat tentang cara minyak mentah diambil dari dalam bumi (dibor, lalu diapakan?).',m1:'Petunjuk: apa yang dilakukan pada minyak mentah di tungku kilang, dan berubah menjadi apa?',m2:'Petunjuk: apa yang terjadi di menara distilasi, dan minyak dipisah menjadi apa saja?',m3:'Petunjuk: BBM dikirim memakai apa ke Depo Untia, lalu dibawa memakai apa ke SPBU?',m4:'Petunjuk: ceritakan tujuan akhir bensin: siapa yang memakainya dan di mana?',
+b0:'Petunjuk: bagaimana batu bara diambil dari dalam tanah, memakai alat apa?',b1:'Petunjuk: batu bara diangkut dengan kendaraan apa, dan dibawa ke mana?',b2:'Petunjuk: apa yang dilakukan pada bongkahan batu bara, dan mengapa harus dicuci?',b3:'Petunjuk: apa yang dibakar di boiler, dan untuk memanaskan apa?',b4:'Petunjuk: apa yang memutar turbin, dan generator mengubah putaran menjadi apa?',b5:'Petunjuk: bagaimana listrik sampai ke rumah, dan apa yang menyala?',
+s0:'Petunjuk: tulis satu kesamaan minyak bumi dan batu bara, misalnya tentang jenis atau sifat sumber energinya.',s1:'Petunjuk: pikirkan apa kesamaan keduanya saat dibakar atau dampaknya.',d0:'Petunjuk: bandingkan asalnya. Minyak bumi berasal dari apa, batu bara berasal dari apa?',d1:'Petunjuk: bandingkan wujudnya (cair atau padat, dan cirinya).',d2:'Petunjuk: bandingkan cara mengolahnya, sebutkan tahap utama masing-masing.',
+j:'Petunjuk: tulis satu dampak buruk pemakaian minyak bumi atau batu bara bagi udara, laut, atau lingkungan.',p:'Petunjuk: tulis satu janji yang benar-benar bisa kamu lakukan, mulai dengan "Saya akan ...".'};
+GI={'Jalur Minyak Bumi':'Jalan dari sumur minyak sampai motor Daeng Ralla, terdiri dari 5 pos yang harus berurutan. Di setiap pos, tulis 1 kalimat tentang apa yang terjadi di pos itu dengan kata-katamu sendiri. Baca petunjuk kecil di bawah nama pos.','Jalur Batu Bara':'Jalan dari tambang sampai rumah Daeng Sangkala, terdiri dari 6 pos yang harus berurutan. Caranya sama: 1 kalimat untuk setiap pos, pakai kata-katamu sendiri.','Persamaan dan Perbedaan Minyak Bumi dan Batu Bara':'Tulis 2 persamaan dan 3 perbedaan antara minyak bumi dan batu bara. Untuk perbedaan, gunakan pola: "Minyak bumi ..., sedangkan batu bara ...".'};
+function add(g,k,l,key){F.push({g:g,k:k,l:l,h:HT[k]||''});KN[k]=key}
+mn.forEach(function(n,i){add('Jalur Minyak Bumi','m'+i,'Pos '+(i+1)+': '+n,mk[i])});
+bn.forEach(function(n,i){add('Jalur Batu Bara','b'+i,'Pos '+(i+1)+': '+n,bk[i])});
+add('Persamaan dan Perbedaan Minyak Bumi dan Batu Bara','s0','Persamaan 1','Contoh: sama-sama fosil, sama-sama tidak dapat diperbarui.');
+add('Persamaan dan Perbedaan Minyak Bumi dan Batu Bara','s1','Persamaan 2','Contoh: pembakarannya sama-sama mencemari udara.');
+add('Persamaan dan Perbedaan Minyak Bumi dan Batu Bara','d0','Perbedaan 1','Minyak bumi dari plankton dan ganggang laut; batu bara dari tumbuhan rawa.');
+add('Persamaan dan Perbedaan Minyak Bumi dan Batu Bara','d1','Perbedaan 2','Minyak bumi cair, kental; batu bara padat, keras.');
+add('Persamaan dan Perbedaan Minyak Bumi dan Batu Bara','d2','Perbedaan 3','Minyak bumi dipanaskan lalu dipisah di menara distilasi; batu bara dihancurkan, dicuci, dibakar di PLTU.');
+add('Pos Jebakan','j','Pos Jebakan: satu dampak buruk','Contoh: asap kendaraan mengotori udara, tumpahan minyak, limbah abu PLTU, bekas tambang rusak.');
+add('Janji Hemat Energi','p','Janji hemat energi yang bisa kamu lakukan','Janji nyata, misalnya mematikan lampu kamar saat keluar.');
+})();
+function errs(){var e={},i=S.id;
+if(i.n.trim().length<3)e.n='Nama lengkap wajib diisi.';
+if(!i.k.trim())e.k='Kelas wajib diisi (contoh: X AK 1).';
+if(!/^\d{1,3}$/.test(i.a.trim()))e.a='No. absen wajib diisi (angka saja).';
+F.forEach(function(f){if((S.a[f.k]||'').trim().length<10)e[f.k]=f.l+' belum diisi (minimal 10 huruf).'});return e}
+function vId(){var e=errs();E={};['n','k','a'].forEach(function(k){if(e[k])E[k]=e[k]});
+if(Object.keys(E).length){render();flash('Lengkapi Nama, Kelas, dan No. Absen (kolom merah).');return false}return true}
+function vAll(){E=errs();var n=Object.keys(E).length;if(n){render();flash('Masih ada '+n+' kolom belum lengkap (ditandai merah).');return false}return true}
+function flash(m){toast(m);var b=document.querySelector('.bad');if(b)b.scrollIntoView({block:'center'})}
+function comp(){var d=0;F.forEach(function(f){if((S.a[f.k]||'').trim().length>=10)d++});return{d:d,t:F.length,pct:Math.round(d/F.length*100)}}
+function lk(){return S.q.l.filter(Boolean).length}
+function passed(){return lk()>=9}
+
+/* ---------- SKETSA (canvas) ---------- */
+var cv=document.createElement('canvas');cv.width=640;cv.height=360;var cx=cv.getContext('2d'),col='#10151f',cur=null,wd=5,tool='p';
+function draw(){cx.fillStyle='#fff';cx.fillRect(0,0,640,360);cx.lineCap=cx.lineJoin='round';
+S.sk.forEach(function(s){cx.strokeStyle=s.c;cx.lineWidth=s.w||3;cx.beginPath();s.p.forEach(function(p,i){i?cx.lineTo(p[0],p[1]):cx.moveTo(p[0],p[1])});if(s.p.length==1)cx.lineTo(s.p[0][0]+.1,s.p[0][1]);cx.stroke()})}
+function pt(e){var r=cv.getBoundingClientRect();return[Math.round((e.clientX-r.left)*640/r.width),Math.round((e.clientY-r.top)*360/r.height)]}
+cv.addEventListener('pointerdown',function(e){e.preventDefault();try{cv.setPointerCapture(e.pointerId)}catch(x){}cur={c:tool=='e'?'#ffffff':col,w:tool=='e'?wd*3:wd,p:[pt(e)]};S.sk.push(cur);draw()});
+cv.addEventListener('pointermove',function(e){if(!cur)return;e.preventDefault();var a=cur.p[cur.p.length-1],b=pt(e);cur.p.push(b);cx.strokeStyle=cur.c;cx.lineWidth=cur.w;cx.beginPath();cx.moveTo(a[0],a[1]);cx.lineTo(b[0],b[1]);cx.stroke()});
+['pointerup','pointercancel'].forEach(function(n){cv.addEventListener(n,function(){if(cur){cur=null;saveD()}})});
+var skb=document.createElement('div');skb.className='cd t';
+var CL=['#10151f','#7a7a7a','#e63946','#ff9f1c','#ffd60a','#9acd32','#1a9850','#2ec4b6','#1d6fe0','#7b2cbf','#ff6fb5','#8b5a2b'];
+skb.innerHTML='<b>🎨 Sketsa Peta (opsional, nilai tambah)</b><p>Gambar rute sederhana: sumur → kilang → SPBU → motor, dan tambang → PLTU → lampu. Pakai jari. Salah gambar? Pakai Penghapus untuk menghapus bagian yang salah saja (ukurannya mengikuti ketebalan yang dipilih).</p><div class="sk"></div><p class="hn">Pilih warna (12 warna):</p><div class="tl">'+CL.map(function(c,i){return'<button class="sw'+(i==0?' on':'')+'" data-c="'+c+'" style="background:'+c+'" aria-label="Warna '+(i+1)+'"></button>'}).join('')+'</div><p class="hn">Alat:</p><div class="tl"><button class="bt cy on" data-t="p">✏️ Pena</button><button class="bt gr" data-t="e">🧽 Penghapus</button><button class="bt gr" data-u="1">↩ Urungkan</button></div><p class="hn">Ketebalan:</p><div class="tl"><button class="bt gr wb" data-w="2">Tipis</button><button class="bt gr wb on" data-w="5">Sedang</button><button class="bt gr wb" data-w="10">Tebal</button><button class="bt gr wb" data-w="16">Sangat tebal</button></div><div class="hp"></div>';
+skb.querySelector('.sk').appendChild(cv);
+function sel(q,b){skb.querySelectorAll(q).forEach(function(x){x.classList.toggle('on',x===b)})}
+skb.addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;var d=b.dataset;
+if(d.c){col=d.c;sel('.sw',b);tool='p';sel('[data-t]',skb.querySelector('[data-t="p"]'))}
+if(d.t){tool=d.t;sel('[data-t]',b)}
+if(d.w){wd=+d.w;sel('.wb',b)}
+if(d.u){S.sk.pop();draw();saveD()}});
+
+/* ---------- konfirmasi inline buatan sendiri ---------- */
+function cfHost(id,el,label,msg,yes,cls){
+function show(){el.innerHTML='<button class="bt '+cls+'" style="min-height:48px">'+label+'</button>';el.firstChild.onclick=ask}
+function ask(){el.innerHTML='<div class="cf"><p>'+msg+'</p><button class="bt red">Ya, hapus</button><button class="bt gr">Batal</button></div>';var b=el.querySelectorAll('button');b[0].onclick=yes;b[1].onclick=show}
+show();hosts[id]=show}
+
+/* ---------- render ---------- */
+function idc(){return'<div class="cd t"><b>🪪 Identitas</b>'+[['n','Nama lengkap'],['k','Kelas (contoh: X AK 1)'],['a','No. absen']].map(function(x){var k=x[0];return'<label class="f'+(E[k]?' bad':'')+'">'+x[1]+'<input data-i="'+k+'" value="'+esc(S.id[k])+'"'+(k=='a'?' inputmode="numeric"':'')+' autocomplete="off">'+(E[k]?'<em>'+E[k]+'</em>':'')+'</label>'}).join('')+'</div>'}
+function fld(f){var k=f.k;return'<label class="f'+(E[k]?' bad':'')+'">'+f.l+(f.h?'<span class="hn">'+f.h+'</span>':'')+'<textarea data-k="'+k+'" rows="2" placeholder="Tulis dengan kata-katamu sendiri...">'+esc(S.a[k]||'')+'</textarea>'+(E[k]?'<em>'+E[k]+'</em>':'')+'</label>'}
+function mat(i){var p=P[i];return'<h2>'+p.i+' '+p.t+'</h2>'+(i==0?'<div class="cd"><b>Selamat datang!</b><p>Baca semua materi dulu, lalu lulus Cek Pemahaman (benar minimal 9 dari 10) untuk membuka Tugas Mandiri. Tombol Lanjut aktif setelah 5 detik di tiap halaman. Jawabanmu tersimpan otomatis.</p></div>'+idc():'')+p.c.map(function(c){return'<div class="cd'+(c[2]?' t':'')+'"><b>'+c[0]+'</b><p>'+c[1]+'</p></div>'}).join('')}
+function sh(){var a=[0,1,2,3];for(var i=3;i>0;i--){var j=Math.random()*(i+1)|0,t=a[i];a[i]=a[j];a[j]=t}return a}
+function qi(){var q=S.q;if(!q.o||q.o.length<10){q.s=[];q.l=[];q.w=[];q.o=[];for(var i=0;i<10;i++){q.s[i]=-1;q.l[i]=false;q.w[i]=false;q.o[i]=sh()}}}
+function quiz(){qi();var q=S.q,h='<h2>🧠 Cek Pemahaman</h2><div class="cd"><b>Aturan</b><p>10 soal penerapan. Harus benar minimal <b>9</b> untuk membuka Tugas Mandiri. Soal benar terkunci; soal salah ditandai merah dan jawabannya dikosongkan. Kamu boleh kembali membaca materi.</p><p>Percobaan: <b>'+q.t+'</b> · Soal benar terkunci: <b>'+lk()+'/10</b></p></div>';
+Q.forEach(function(x,i){h+='<div class="cd'+(q.l[i]?' ok':q.w[i]?' no':'')+'"><b>'+(i+1)+'. '+x[0]+'</b>';
+q.o[i].forEach(function(oi){h+='<label class="op"><input type="radio" name="q'+i+'" value="'+oi+'"'+(q.s[i]==oi?' checked':'')+(q.l[i]?' disabled':'')+'><span>'+x[1][oi]+'</span></label>'});
+h+=q.l[i]?'<p class="g">✅ Benar dan terkunci</p>':q.w[i]?'<p class="r">❌ Belum tepat. Petunjuk: '+x[2]+'</p>':'';h+='</div>'});
+return h+'<button class="bt cy" data-a="ck" style="width:100%">Periksa Jawaban</button>'}
+function chk(){qi();var q=S.q,kosong=[];Q.forEach(function(_,i){if(!q.l[i]&&q.s[i]<0)kosong.push(i+1)});
+if(kosong.length)return toast('Soal nomor '+kosong.join(', ')+' belum dijawab.');
+q.t++;Q.forEach(function(_,i){if(q.l[i])return;if(q.s[i]===0){q.l[i]=true;q.w[i]=false}else{q.w[i]=true;q.s[i]=-1;q.o[i]=sh()}});
+q.h.push(lk());saveNow();render();window.scrollTo(0,0);
+toast(passed()?'Lulus! Kamu boleh membuka Tugas Mandiri 🎉':'Benar '+lk()+'/10. Butuh minimal 9. Perbaiki soal merah.')}
+function task(){var h='<h2>🗺️ Misi: Dua Jalan Menuju Rumah</h2><div class="cd"><b>Peta perjalanan</b><p>Minyak bumi sampai sebagai bensin di motor Daeng Ralla. Batu bara sampai sebagai listrik di rumah Daeng Sangkala. Isi tiap pos dengan <b>kata-katamu sendiri</b> (tempel teks dinonaktifkan). Boleh membuka materi lewat tombol Kembali.</p></div>'+idc(),g='';
+F.forEach(function(f){if(f.g!=g){g=f.g;h+='<h3>'+g+'</h3>'+(GI[g]?'<div class="cd t"><p>'+GI[g]+'</p></div>':'')}h+=fld(f)});
+return h+'<div id="cvh"></div>'}
+function rep(pb){var q=S.q,n=comp(),h='<div class="rp"><h2>TM 2 – Sumber Energi Tidak Dapat Diperbarui (Minyak Bumi dan Batu Bara)</h2><p><b>Nama:</b> '+esc(S.id.n)+' · <b>Kelas:</b> '+esc(S.id.k)+' · <b>No. Absen:</b> '+esc(S.id.a)+'</p><p><b>Skor Cek Pemahaman:</b> '+lk()+'/10 · <b>Percobaan:</b> '+q.t+' · <b>Pindah tab/aplikasi:</b> '+S.tb+' kali · <b>Kelengkapan:</b> '+n.pct+'% ('+n.d+'/'+n.t+' kolom)</p>',g='';
+F.forEach(function(f){if(f.g!=g){g=f.g;h+='<h3>'+g+'</h3>'}h+='<div><b>'+f.l+'</b></div><div class="a">'+esc(S.a[f.k]||'(kosong)')+'</div>'+(pb?'<div class="kn">🔑 Kunci ringkas: '+KN[f.k]+'</div>':'')});
+if(S.sk.length)h+='<h3>Sketsa Peta</h3><img alt="Sketsa" src="'+cv.toDataURL('image/png')+'">';
+return h+'</div>'}
+function review(){var n=comp(),h='<h2>🏁 Review dan Laporan</h2><div class="cd ok"><b>Skor kelengkapan: '+n.pct+'%</b><p>'+n.d+' dari '+n.t+' kolom terisi. Ini hanya penilaian <b>kelengkapan</b>. Kebenaran isi tetap dinilai manual oleh guru. Bandingkan jawabanmu dengan kunci ringkas (🔑) di bawah.</p></div>'+rep(true)+'<h3>Pembahasan Cek Pemahaman</h3>';
+Q.forEach(function(x,i){h+='<div class="cd t"><b>'+(i+1)+'. Jawaban benar: '+x[1][0]+'</b><p>'+x[2]+'</p></div>'});
+return h+'<h3>Simpan Tugas</h3><div class="tl"><button class="bt cy" data-a="pdf">📄 Simpan sebagai PDF</button><button class="bt" data-a="txt">⬇ Unduh sebagai .txt</button></div><p style="font-size:13px">Di jendela cetak, pilih "Simpan sebagai PDF". Jika gagal di HP kamu, pakai tombol .txt (gambar sketsa hanya ada di PDF).</p>'}
+function left(){return Math.max(0,5-Math.floor((Date.now()-t0)/1000))}
+function upd(){var b=$('[data-a="nx"]');if(!b)return;var st=S.st,l=left();
+if(st<M){b.textContent=l?'Lanjut ('+l+')':'Lanjut ▶';b.classList.toggle('dis',l>0)}
+else if(st==QZ){b.textContent='Mulai Tugas Mandiri ▶';b.classList.toggle('dis',!passed())}
+else b.textContent='Ke Review ▶'}
+function grow(t){t.style.height='auto';t.style.height=t.scrollHeight+'px'}
+function render(){var st=S.st;if(st==RV&&Object.keys(errs()).length)st=S.st=TM;
+if(st==TM&&!passed())st=S.st=QZ;
+hosts={sk:hosts.sk};$('#pg').textContent='Halaman '+(st+1)+' dari '+Y;$('#pbi').style.width=((st+1)/Y*100)+'%';
+var h=st<M?mat(st):st==QZ?quiz():st==TM?task():review();
+h+='<div class="nv">'+(st>0?'<button class="bt gr" data-a="pv">◀ Kembali</button>':'')+(st<RV?'<button class="bt" data-a="nx">Lanjut ▶</button>':'')+'</div><div class="rs" id="rs"></div>';
+$('#v').innerHTML=h;
+cfHost('rs',$('#rs'),'🔄 Mulai Ulang','Yakin hapus semua jawaban dan hasil kuis? Kamu akan kembali ke halaman pertama.',doReset,'gr');
+if(st==TM){$('#cvh').appendChild(skb);if(!hosts.sk)cfHost('sk',skb.querySelector('.hp'),'🗑 Hapus Sketsa','Yakin hapus seluruh sketsa?',function(){S.sk=[];draw();saveD();hosts.sk()},'gr')}
+document.querySelectorAll('textarea').forEach(grow);upd()}
+function go(n){Object.keys(hosts).forEach(function(k){try{hosts[k]()}catch(e){}});E={};S.st=n;t0=Date.now();clearInterval(tick);tick=setInterval(upd,500);render();window.scrollTo(0,0);saveNow()}
+function next(){var st=S.st;
+if(st<M){if(st==0&&!vId())return;if(left()>0)return toast('Baca dulu ya, tunggu '+left()+' detik lagi.');go(st+1)}
+else if(st==QZ){qi();if(!passed())return toast('Belum lulus: benar '+lk()+'/10, butuh minimal 9. Perbaiki soal merah atau baca materi lagi.');go(TM)}
+else if(st==TM){if(vAll())go(RV)}}
+
+/* ---------- ekspor ---------- */
+function cl(s){return String(s).trim().replace(/[\\\/:*?"<>|]+/g,'').replace(/\s+/g,'-')}
+function fname(){return'TM 2_'+[S.id.n,S.id.k,S.id.a].map(cl).join('_')}
+function pdf(){busy=true;var pr=$('#pr');pr.innerHTML=rep(false);var old=document.title;document.title=fname();
+var im=pr.querySelector('img'),p=(im&&im.decode)?im.decode().catch(function(){}):Promise.resolve();
+p.then(function(){setTimeout(function(){try{window.print()}catch(e){toast('Cetak gagal. Pakai tombol .txt.')}},120)});
+setTimeout(function(){document.title=old;busy=false},5000)}
+function txt(){busy=true;var q=S.q,n=comp(),L=['TM 2 – SUMBER ENERGI TIDAK DAPAT DIPERBARUI (MINYAK BUMI DAN BATU BARA)','Nama: '+S.id.n,'Kelas: '+S.id.k,'No. Absen: '+S.id.a,'Skor Cek Pemahaman: '+lk()+'/10 (percobaan: '+q.t+')','Pindah tab/aplikasi: '+S.tb+' kali','Kelengkapan: '+n.pct+'% ('+n.d+'/'+n.t+' kolom)','CATATAN: file .txt ini hanya berisi jawaban teks. Gambar sketsa (jika ada) hanya tersedia di versi PDF.',''],g='';
+F.forEach(function(f){if(f.g!=g){g=f.g;L.push('== '+g.toUpperCase()+' ==')}L.push(f.l+':',S.a[f.k]||'(kosong)','')});
+var b=new Blob([L.join('\r\n')],{type:'text/plain;charset=utf-8'}),a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=fname()+'.txt';document.body.appendChild(a);a.click();
+setTimeout(function(){URL.revokeObjectURL(a.href);a.remove();busy=false},3000)}
+
+/* ---------- reset ---------- */
+function doReset(){isResetting=true;clearTimeout(tm);clearInterval(tick);
+try{localStorage.removeItem(KEY)}catch(e){}
+S=fresh();E={};cur=null;draw();go(0);toast('Semua jawaban dan hasil kuis dihapus.');
+setTimeout(function(){isResetting=false},800)}
+
+/* ---------- listener ---------- */
+document.addEventListener('click',function(e){var b=e.target.closest('[data-a]');if(!b)return;var a=b.dataset.a;
+if(a=='nx')next();else if(a=='pv')go(S.st-1);else if(a=='ck')chk();else if(a=='pdf')pdf();else if(a=='txt')txt()});
+document.addEventListener('input',function(e){var t=e.target,k=t.dataset&&t.dataset.k,i=t.dataset&&t.dataset.i;if(k===undefined&&i===undefined)return;
+var key=k!==undefined?k:i;if(k!==undefined){S.a[k]=t.value;grow(t)}else S.id[i]=t.value;
+if(E[key]){delete E[key];var l=t.parentNode;l.classList.remove('bad');var m=l.querySelector('em');if(m)m.remove()}saveD()});
+document.addEventListener('change',function(e){var t=e.target;if(t.type=='radio'){S.q.s[+t.name.slice(1)]=+t.value;saveD()}});
+function blk(e,m){if(e.target&&e.target.tagName=='TEXTAREA'){e.preventDefault();toast(m);return true}}
+document.addEventListener('paste',function(e){blk(e,'Tempel teks dinonaktifkan. Tulis jawabanmu sendiri ya!')},true);
+document.addEventListener('drop',function(e){blk(e,'Seret-lepas teks dinonaktifkan. Tulis jawabanmu sendiri ya!')},true);
+document.addEventListener('dragover',function(e){if(e.target.tagName=='TEXTAREA')e.preventDefault()},true);
+document.addEventListener('contextmenu',function(e){blk(e,'Klik kanan dinonaktifkan di kolom jawaban.')},true);
+document.addEventListener('beforeinput',function(e){if(/Paste|Drop/.test(e.inputType||''))blk(e,'Tempel teks dinonaktifkan. Tulis jawabanmu sendiri ya!')},true);
+document.addEventListener('visibilitychange',function(){if(isResetting)return;if(document.hidden){if(!busy)S.tb++;saveNow()}});
+['pagehide','beforeunload'].forEach(function(n){window.addEventListener(n,function(){if(!isResetting)saveNow()})});
+window.addEventListener('blur',function(){if(!isResetting)saveNow()});
+window.addEventListener('afterprint',function(){busy=false});
+
+S=load();draw();if(S.st<0||S.st>=Y)S.st=0;t0=Date.now();tick=setInterval(upd,500);render();
+</script></body></html>
